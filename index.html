@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Contratos DGPE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Librerías externas (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-content">
+    <div>
+      <div class="header-title">Generador de Contratos DGPE</div>
+      <div class="header-subtitle">Dirección de Alfabetización Digital — Programas DMD y Robótica</div>
+    </div>
+    <div class="header-meta">
+      Secretaría de Educación<br>
+      Estado de Jalisco
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-button active" data-tab="generar">Generar contratos</button>
+    <button class="tab-button" data-tab="prestadores">Prestadores</button>
+    <button class="tab-button" data-tab="ayuda">Ayuda</button>
+  </div>
+
+  <!-- ================== TAB: GENERAR ================== -->
+  <div id="tab-generar" class="tab-content active">
+
+    <div class="card">
+      <h2 class="card-title">1. Sube el archivo del periodo</h2>
+      <p class="card-subtitle">Excel con los números DGPE y fechas que te mande Estratégicos. <a href="#" id="btn-plantilla-excel" style="color: var(--color-primary); text-decoration: none; font-weight: 500;">Descargar plantilla en blanco →</a></p>
+
+      <div class="drop-zone" id="drop-zone">
+        <div class="drop-zone-icon">📋</div>
+        <div class="drop-zone-text">Arrastra tu archivo aquí o haz clic para seleccionar</div>
+        <div class="drop-zone-hint">Formatos soportados: .xlsx, .xls, .csv</div>
+        <span class="file-name" id="file-name"></span>
+        <input type="file" id="file-input" accept=".xlsx,.xls,.csv">
+      </div>
+
+      <div class="error-box" id="error-archivo"></div>
+
+      <div class="help-box" style="margin-top: 16px;">
+        <strong>Columnas esperadas (en este orden):</strong>
+        Nombre completo · Número DGPE · Fecha inicio · Fecha fin · Fecha firma.
+        Las fechas en formato <code>AAAA-MM-DD</code> (ej. <code>2026-05-01</code>).
+      </div>
+    </div>
+
+    <div class="card" id="preview-contenedor" style="display: none;">
+      <h2 class="card-title">
+        2. Revisa lo que se va a generar
+        <span class="card-counter" id="preview-contador">0</span>
+      </h2>
+      <p class="card-subtitle">Verifica que todos los datos estén correctos antes de generar.</p>
+
+      <div class="tabla-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Prestador</th>
+              <th>DGPE</th>
+              <th>Vigencia</th>
+              <th class="text-right">Meses</th>
+              <th>Firma</th>
+            </tr>
+          </thead>
+          <tbody id="preview-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="actions-bar" style="margin-top: 20px; margin-bottom: 0;">
+        <div></div>
+        <button id="btn-generar" class="btn btn-primary btn-large" disabled>
+          🚀 Generar contratos en ZIP
+        </button>
+      </div>
+
+      <div class="progress-container" id="progress-container">
+        <div class="progress-bar-bg">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="progress-text" id="progress-text">Iniciando…</div>
+      </div>
+
+      <div class="resultado-container" id="resultado-container">
+        <div class="resultado-card">
+          <div class="resultado-icon">✅</div>
+          <div class="resultado-titulo"><span id="resultado-conteo">0</span> contrato(s) generados</div>
+          <div class="resultado-nombre" id="resultado-nombre">contratos.zip</div>
+          <button id="btn-descargar" class="btn btn-success btn-large">
+            ⬇ Descargar ZIP
+          </button>
+          <div class="errores-container" id="errores-container" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" id="preview-vacio">
+      <div class="empty-state-icon">📭</div>
+      <div>Sube un archivo para ver la vista previa</div>
+    </div>
+
+  </div>
+
+  <!-- ================== TAB: PRESTADORES ================== -->
+  <div id="tab-prestadores" class="tab-content">
+    <div class="card">
+      <h2 class="card-title">
+        Lista de prestadores en la base de datos
+        <span class="card-counter"><span id="contador-prestadores">0</span></span>
+      </h2>
+      <p class="card-subtitle">
+        Estos son los datos personales que se usan al generar cada contrato. Si necesitas
+        modificar alguno (cambio de domicilio, RFC, etc.), edita el archivo <code>data/prestadores.js</code>
+        en el repositorio.
+      </p>
+
+      <div class="tabla-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Programa</th>
+              <th>Nombre completo</th>
+              <th>RFC</th>
+              <th>Email</th>
+              <th class="text-right">Mensual</th>
+              <th class="text-right">ISR</th>
+            </tr>
+          </thead>
+          <tbody id="prestadores-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================== TAB: AYUDA ================== -->
+  <div id="tab-ayuda" class="tab-content">
+    <div class="card">
+      <h2 class="card-title">¿Cómo usar este sitio?</h2>
+      <ol style="margin-left: 20px; line-height: 1.8;">
+        <li><strong>Recibes la captura de Estratégicos</strong> con los números DGPE asignados.</li>
+        <li><strong>Descargas la plantilla en blanco</strong> (botón "Descargar plantilla" arriba) — viene con los nombres ya pre-llenados.</li>
+        <li><strong>Llenas el Excel</strong> con: número DGPE, fecha de inicio, fecha de fin y fecha de firma.</li>
+        <li><strong>Subes el Excel</strong> al área de carga.</li>
+        <li><strong>Revisas la vista previa</strong> para confirmar que todo está bien.</li>
+        <li><strong>Clic en "Generar"</strong> y descargas el ZIP con todos los contratos en Word.</li>
+        <li><strong>Abres en Word, imprimes</strong> y mandas a firma.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Formato del Excel</h2>
+      <p style="margin-bottom: 12px;">El archivo debe tener estas columnas (en este orden):</p>
+      <div class="tabla-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Columna</th>
+              <th>Ejemplo</th>
+              <th>Notas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Nombre completo</strong></td>
+              <td>Gilberto Solano García</td>
+              <td>Debe coincidir con la lista de prestadores</td>
+            </tr>
+            <tr>
+              <td><strong>Número DGPE</strong></td>
+              <td><code>DGPE 659/2026</code></td>
+              <td>Tal cual te lo mande Estratégicos</td>
+            </tr>
+            <tr>
+              <td><strong>Fecha inicio</strong></td>
+              <td><code>2026-05-01</code></td>
+              <td>Formato AAAA-MM-DD</td>
+            </tr>
+            <tr>
+              <td><strong>Fecha fin</strong></td>
+              <td><code>2026-07-31</code></td>
+              <td>Formato AAAA-MM-DD</td>
+            </tr>
+            <tr>
+              <td><strong>Fecha firma</strong></td>
+              <td><code>2026-04-30</code></td>
+              <td>Formato AAAA-MM-DD</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Cálculos automáticos</h2>
+      <p>El sistema calcula automáticamente:</p>
+      <ul style="margin: 12px 0 0 20px; line-height: 1.8;">
+        <li><strong>Monto total</strong> = monto mensual × cantidad de meses cubiertos por la vigencia</li>
+        <li><strong>IVA</strong> = monto base × 16%</li>
+        <li><strong>ISR</strong> = monto base × porcentaje del régimen de la persona (1.25% o 10%)</li>
+        <li><strong>Neto a pagar</strong> = monto base + IVA − ISR</li>
+        <li><strong>Conversión a letras</strong> en español (ej. <em>"Cuarenta y cuatro mil cinco pesos 59/100 M.N."</em>)</li>
+        <li><strong>Vigencia legal</strong> con día 1 = "primero" (ej. <em>"1 primero de mayo de 2026 dos mil veintiséis y concluirá el…"</em>)</li>
+        <li><strong>Mes/periodo de pago</strong> según meses cubiertos (ej. <em>"mayo, junio y julio de 2026 dos mil veintiséis"</em>)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Si una persona NO entra ese periodo</h2>
+      <p>Simplemente no la incluyas en el Excel. El sistema solo procesa las filas que tengan todos los datos llenos.</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- Scripts en orden -->
+<script src="data/prestadores.js"></script>
+<script src="data/plantillas.js"></script>
+<script src="js/generador.js"></script>
+<script src="js/ui.js"></script>
+
+</body>
+</html>
