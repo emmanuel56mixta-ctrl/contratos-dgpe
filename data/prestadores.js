@@ -19,7 +19,7 @@ const PRESTADORES = [
     domFiscal: "calle C. Emilio Rabaza, número 2087, colonia Blanco y Cuellar, C. P. 44730, de la municipalidad de Zapopan, Jalisco",
     objeto: "Editor de Video y realización audiovisual",
     clavePres: CLAVE_DMD,
-    montoMensual: 13248.27,
+    montoMensual: 13248.00,
     isrPct: 10.0,
   },
   {
@@ -31,7 +31,7 @@ const PRESTADORES = [
     domFiscal: "calle Río Mezquitic, número 753, de la Colonia Loma Bonita Ejidal, C.P. 45085, de la Municipalidad de Zapopan, Jalisco",
     objeto: "Diseñador Gráfico y Diseño Editorial",
     clavePres: CLAVE_DMD,
-    montoMensual: 13248.27,
+    montoMensual: 13248.00,
     isrPct: 10.0,
   },
   {
@@ -43,7 +43,7 @@ const PRESTADORES = [
     domFiscal: "calle Volcán Cofre de Perote, número 2084, de la colonia El Colli Urbano 1ra Sección, C.P. 45070, de la Municipalidad de Zapopan, Jalisco",
     objeto: "Motion Graphics, Realización Audiovisual y Post Producción",
     clavePres: CLAVE_DMD,
-    montoMensual: 13248.27,
+    montoMensual: 13248.00,
     isrPct: 1.25,
   },
   {
@@ -55,7 +55,7 @@ const PRESTADORES = [
     domFiscal: "calle Francisco I Madero, número 329, de la colonia Lomas del Batan, C.P. 45190, de la Municipalidad de Zapopan, Jalisco",
     objeto: "Producción y Post Producción de Video",
     clavePres: CLAVE_DMD,
-    montoMensual: 13248.27,
+    montoMensual: 13248.00,
     isrPct: 1.25,
   },
   {
@@ -67,7 +67,7 @@ const PRESTADORES = [
     domFiscal: "calle Sinaloa, número 1379, colonia La Normal, C.P. 44260, de la municipalidad de Guadalajara, Jalisco,",
     objeto: "Animador 2D y 3D",
     clavePres: CLAVE_DMD,
-    montoMensual: 13248.27,
+    montoMensual: 13248.00,
     isrPct: 10.0,
   },
   {
@@ -79,7 +79,7 @@ const PRESTADORES = [
     domFiscal: "calle José María Castillo, número 142, colonia Residencial Poniente, C.P. 45136, de la municipalidad de Zapopan, Jalisco",
     objeto: "Motion Graphics y Edición de Video",
     clavePres: CLAVE_DMD,
-    montoMensual: 13248.27,
+    montoMensual: 13248.00,
     isrPct: 10.0,
   },
   {
@@ -91,7 +91,7 @@ const PRESTADORES = [
     domFiscal: "calle José Clemente Orozco, número 49, en la colonia Lomas de Tlaquepaque, C.P. 45559 de la Municipalidad de San Pedro Tlaquepaque, Jalisco",
     objeto: "Post Producción y Realización Audiovisual",
     clavePres: CLAVE_DMD,
-    montoMensual: 13248.27,
+    montoMensual: 13248.00,
     isrPct: 1.25,
   },
 
@@ -105,7 +105,7 @@ const PRESTADORES = [
     domFiscal: "675 de la Avenida Padre Xavier Scheifler de Amezaga, colonia Parques del Bosque, C.P. 45609, de la municipalidad de San Pedro Tlaquepaque, Jalisco",
     objeto: "Asesor Externo Especializado en Robótica",
     clavePres: CLAVE_ROB,
-    montoMensual: 14668.53,
+    montoMensual: 14668.00,
     isrPct: 1.25,
   },
   {
@@ -117,7 +117,7 @@ const PRESTADORES = [
     domFiscal: "San Pedro # 52, de la Colonia Santa Paula, C.P. 45420, de la Municipalidad de Tonalá, Jalisco",
     objeto: "Asesor Externo Especializado en Programación",
     clavePres: CLAVE_ROB,
-    montoMensual: 14668.53,
+    montoMensual: 14668.00,
     isrPct: 1.25,
   },
   {
@@ -129,7 +129,7 @@ const PRESTADORES = [
     domFiscal: "AND Vicente Arregui número 400, de la Colonia Miravalle, C.P. 44990, de la Municipalidad de Guadalajara, Jalisco.,",
     objeto: "Asesor Externo Especializado en Programación",
     clavePres: CLAVE_ROB,
-    montoMensual: 14668.53,
+    montoMensual: 14668.00,
     isrPct: 1.25,
   },
   {
@@ -141,7 +141,7 @@ const PRESTADORES = [
     domFiscal: "Esteban Alatorre número 2847, de la Colonia Libertad, C.P. 44750, de la Municipalidad de Guadalajara, Jalisco",
     objeto: "Asesor Externo Especializado en Programación",
     clavePres: CLAVE_ROB,
-    montoMensual: 14668.53,
+    montoMensual: 14668.00,
     isrPct: 1.25,
   },
   {
@@ -153,7 +153,7 @@ const PRESTADORES = [
     domFiscal: "Calle Lázaro Cardenas, número 212, Localidad de San Sebastián el Grande, C.P. 45650, municipio de Tlajomulco de Zúñiga, Jalisco",
     objeto: "Asesor Externo Especializado en Programación en área de Robótica",
     clavePres: CLAVE_ROB,
-    montoMensual: 14668.53,
+    montoMensual: 14668.00,
     isrPct: 1.25,
   },
 ];
